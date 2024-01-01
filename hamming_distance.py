@@ -1,6 +1,10 @@
-print("\n This script calculates hamming distance between two ADN sequences. \n")
+print("\nThis script calculates hamming distance between two ADN sequences.")
 
-FirstSequence = input("Enter the first sequence: ")
-print("The first sequence you enter is:", FirstSequence, "\n")
-SecondSequence = input("Enter the second sequence: ")
-print("The second sequence you enter is:", SecondSequence)
+while True:
+    print("\nNB: The first and second sequences mmust have the same length.")
+    FirstSequence = input("\tEnter the first sequence: ")
+    SecondSequence = input("\tEnter the second sequence: ")
+    if len(FirstSequence) == len(SecondSequence):
+        break
+
+print("The first sequence is:", FirstSequence,", and the second one is:", SecondSequence)
