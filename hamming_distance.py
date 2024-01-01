@@ -8,3 +8,11 @@ while True:
         break
 
 print("The first sequence is:", FirstSequence,", and the second one is:", SecondSequence)
+
+Distance = 0
+for nucleotide in range(len(FirstSequence)):
+    if FirstSequence[nucleotide] != SecondSequence[nucleotide]:
+        Distance += 1
+
+print("\nThe hamming distance between '" + FirstSequence +"' and '" + SecondSequence + "' is:", Distance)
+print("")
