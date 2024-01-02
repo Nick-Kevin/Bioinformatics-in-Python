@@ -26,5 +26,9 @@ Open a terminal or command prompt and navigate to the directory that you want to
 - [Hammming distance](/README#hamming-distance)
 - [Levenshtein distance](/README#levenshtein-distance)
 
-# Hamming distance
-# Levenshtein distance
+### Hamming distance
+Hamming distance is a metric for comparing two binary data strings or strings data. While comparing two binary strings of equal length, Hamming distance is the number of bit positions in which the two bits are different.
+But here, the bit is replaced by character because of comparing two ADN. 
+
+The Hamming distance between two strings, a and b is denoted as d(a,b).
+### Levenshtein distance
