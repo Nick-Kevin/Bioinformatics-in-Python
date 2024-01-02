@@ -21,3 +21,10 @@ Open a terminal or command prompt and navigate to the directory that you want to
 ```
     python3 hamming_distance.py
 ```
+
+### List of modules
+- [Hammming distance](/README#hamming-distance)
+- [Levenshtein distance](/README#levenshtein-distance)
+
+# Hamming distance
+# Levenshtein distance
