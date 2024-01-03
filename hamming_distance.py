@@ -1,4 +1,4 @@
-print("\nThis script calculates hamming distance between two ADN sequences.")
+print("\nThis module calculates hamming distance between two ADN sequences.")
 
 while True:
     print("\nNB: The first and second sequences mmust have the same length.")
