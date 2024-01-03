@@ -34,6 +34,10 @@ def levenshtein_distance(firstSequence, secondSequence):
         for column in row:
             print(column, end=" ")
         print()
+    LevenshteinDistanceBetweenTheTwoSequences = Distance[len(secondSequence)][len(firstSequence)]
+    print("The levenshtein distance between '" + firstSequence + "' and '" + secondSequence + "' is:")
+    print("Dl(" + firstSequence + "," + secondSequence + ") =", LevenshteinDistanceBetweenTheTwoSequences)
+    return LevenshteinDistanceBetweenTheTwoSequences
     
 
 levenshtein_distance(FirstSequence, SecondSequence)
