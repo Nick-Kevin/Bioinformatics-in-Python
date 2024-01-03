@@ -1,8 +1,3 @@
-print("\nThis module calculate the Levenshtein distance between two ADN sequences\n")
-
-FirstSequence = input("Enter the first sequence: ")
-SecondSequence = input("Enter the second sequence: ")
-
 def minimum(arg1, arg2, arg3):
     if arg1 < arg2:
         if arg1 < arg3:
@@ -38,6 +33,3 @@ def levenshtein_distance(firstSequence, secondSequence):
     print("The levenshtein distance between '" + firstSequence + "' and '" + secondSequence + "' is:")
     print("Dl(" + firstSequence + "," + secondSequence + ") =", LevenshteinDistanceBetweenTheTwoSequences)
     return LevenshteinDistanceBetweenTheTwoSequences
-    
-
-levenshtein_distance(FirstSequence, SecondSequence)
