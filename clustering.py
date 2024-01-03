@@ -17,7 +17,25 @@ for rowSequence in Sequences:
         CurrentRow.append(distance)
     DistancesBetweenSequences.append(CurrentRow)
 
+Blank = " "
+FirstRow = []
+DistancesBetweenSequencesLength = len(DistancesBetweenSequences)
+charLength = len(str(DistancesBetweenSequencesLength+1))
+FirstColFirstRow = ""
+for _ in range(charLength+1):
+    FirstColFirstRow += Blank
+FirstColFirstRow += "|"
+FirstRow.append(FirstColFirstRow)
+for sequence in range(len(Sequences)):    
+    ColumnValue = " x" + str(sequence+1) + "|"
+    FirstRow.append(ColumnValue)
+FirstRowToPrint = ""
+for _ in FirstRow:
+    FirstRowToPrint += _
+print()
+print(FirstRowToPrint)
 for Row in DistancesBetweenSequences:
+    CurrentRow = "x" + str(DistancesBetweenSequences.index(Row)+1) + "|"
     for Column in Row:
-        print(Column, end=" ")
-    print()
+        CurrentRow += "  " + str(Column) + "|"
+    print(CurrentRow)

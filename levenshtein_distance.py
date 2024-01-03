@@ -26,6 +26,15 @@ def levenshtein_distance(firstSequence, secondSequence):
             dist3 = Distance[RowIndex][ColumnIndex-1] + 1
             Distance[RowIndex].append(minimum(dist1, dist2, dist3))
     LevenshteinDistanceBetweenTheTwoSequences = Distance[len(secondSequence)][len(firstSequence)]
-    print("The levenshtein distance between '" + firstSequence + "' and '" + secondSequence + "' is:")
-    print("Dl(" + firstSequence + "," + secondSequence + ") =", LevenshteinDistanceBetweenTheTwoSequences)
+    print("The levenshtein distance between '"
+        +firstSequence
+        +"' and '"
+        + secondSequence
+        +"' is: Dl("
+        +firstSequence
+        +","
+        +secondSequence
+        +") =",
+        LevenshteinDistanceBetweenTheTwoSequences
+    )
     return LevenshteinDistanceBetweenTheTwoSequences
