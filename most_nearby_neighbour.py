@@ -7,7 +7,7 @@ for _ in range(NumberOfSequences):
     Sequence = input("Enter the ADN sequence " + str(_+1) + ": ")
     Sequences.append(Sequence)
 
-print("All sequences you'd enter:", Sequences)
+print("All sequences you entered:", Sequences)
 
 DoorStep = int(input("Enter the doorstep: "))
 Classes = []
