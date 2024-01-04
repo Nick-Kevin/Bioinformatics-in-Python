@@ -28,9 +28,8 @@ def get_sequences_by_distance(table, distance_value):
     return { 'first_sequence': FirstSequence, 'second_sequence': SecondSequence }
 
 def is_finished(table, sequences_table):
-    LastTable = table[len(table)-1]
     InSequencesTable = 0
-    for item in LastTable:
+    for item in table:
         for sequence in sequences_table:
             if item == sequence:
                 InSequencesTable += 1
@@ -60,9 +59,12 @@ def distance_between_classes(firstClassTable, secondClassTable):
     return minimum
 
 def merge_classes(firstClassTable, secondClassTable):
+    Merge = []
+    for sequence in firstClassTable:
+        Merge.append(sequence)
     for sequence in secondClassTable:
-        firstClassTable.append(sequence)
-    return firstClassTable
+        Merge.append(sequence)
+    return Merge
 
 def create_new_table(sequences):
     DistanceTable = []
@@ -89,6 +91,28 @@ def create_new_table(sequences):
         DistanceTable.append(NewRow)
     return DistanceTable
 
+def create_sequences(LastSequences, NewClass):
+    NewSequences = []
+    for item in LastSequences:
+        if is_class(item):
+            count = 0
+            for sequence in NewClass:
+                for i in item:
+                    if i == sequence:
+                        count += 1
+            if(count == 0):
+                NewSequences.append(item)    
+        else:
+            InNewClass = False
+            for sequence in NewClass:
+                if sequence == item:
+                    InNewClass = True
+            if InNewClass == False:
+                NewSequences.append(item)
+    NewSequences.append(NewClass)
+    return NewSequences
+
+
 def main():
     NumberOfSequences = int(input("Enter the number of sequences: "))
     Sequences = []
@@ -98,33 +122,73 @@ def main():
 
     print("All sequences you entered: ", Sequences)
 
-    DistanceTable = []
     Classes = []
-    FirstRow = []
-    FirstRow.append("")
+    LastSequences = Sequences
+    """DistancesTable = create_new_table(LastSequences)
+    MinimumDistance = get_minimum_in_distance_table(DistancesTable)
+    SequecenesPositions = get_sequences_by_distance(DistancesTable, MinimumDistance)
+    print(DistancesTable)
+    print("distance minimum = ",MinimumDistance)
+    print("Position des sequences = ",SequecenesPositions)
+    FirstSequence = SequecenesPositions['first_sequence']
+    SecondSequence = SequecenesPositions['second_sequence']
+    NewClasses = []
+    if is_class(FirstSequence) and is_class(SecondSequence):
+        NewClasses = merge_classes(FirstSequence, SecondSequence)
+    elif is_class(FirstSequence):
+        NewClasses = FirstSequence.append(SecondSequence)
+    elif is_class(SecondSequence):
+        NewClasses = SecondSequence.append(FirstSequence)
+    else:
+        NewClasses = [FirstSequence, SecondSequence]
+    print("la nouvelle classe = ", NewClasses)
+    Classes.append(NewClasses)
+    print("last sequences:", LastSequences)
+    LastSequences = create_sequences(LastSequences, NewClasses)
+    print("new sequences:", LastSequences)"""
+    while True:
+        DistancesTable = create_new_table(LastSequences)
+        for item in DistancesTable:
+            print(item)
+        MinimumDistance = get_minimum_in_distance_table(DistancesTable)
+        SequecenesPositions = get_sequences_by_distance(DistancesTable, MinimumDistance)
+        FirstSequence = SequecenesPositions['first_sequence']
+        SecondSequence = SequecenesPositions['second_sequence']        
+        # create new class
+        print("First sequence:", FirstSequence)
+        print("Second sequence:", SecondSequence)
+        NewClasses = []
+        if is_class(FirstSequence) and is_class(SecondSequence):
+            NewClasses = merge_classes(FirstSequence, SecondSequence)
+        elif is_class(FirstSequence):
+            for sequence in FirstSequence:
+                NewClasses.append(sequence)
+            NewClasses.append(SecondSequence)
+        elif is_class(SecondSequence):
+            for sequence in SecondSequence:
+                NewClasses.append(sequence)
+            NewClasses.append(SecondSequence)
+        else:
+            NewClasses = [FirstSequence, SecondSequence]
+        Classes.append(NewClasses)
+        print("new classe", NewClasses)
+        print("Last sequence", LastSequences)
+        LastSequences = create_sequences(LastSequences, NewClasses)
+        LastClass = Classes[len(Classes)-1]        
+        print("Last class in classes", LastClass)
+        print("sequences = ", Sequences)
+        print("Tous les classes:", Classes)        
+        print("\n\nNew sequence = ", LastSequences)
+        if is_finished(LastClass, Sequences):
+            break
+    for classe in reversed(Classes):
+        print("classe niveau:", classe)
+    LastLevel = "classe niveau: "
     for sequence in Sequences:
-        FirstRow.append(sequence)
-    print(FirstRow  )
-    DistanceTable.append(FirstRow)
+        a = [sequence]
+        LastLevel += str(a) + ", "
+    print(LastLevel)
 
-    for sequence in Sequences:
-        NewRow = []
-        NewRow.append(sequence)
-        for other_sequence in Sequences:
-            Distance = levenshtein_distance(sequence, other_sequence)
-            NewRow.append(Distance)
-        DistanceTable.append(NewRow)
 
-    for Row in DistanceTable:
-        print(Row)
 
-    Value = int(input("Enter the distance between the two sequence: "))
-
-    SequencesOfTheValue = get_sequences_by_distance(DistanceTable, Value)
-    print('First sequence: ', SequencesOfTheValue['first_sequence'])
-    print('Second sequence: ', SequencesOfTheValue['second_sequence'])
-
-#main()
-tab = ["aa","bb", ["dddd", "bafff"]]
-DistanceTable = create_new_table(tab)
-print("minimum = ", get_minimum_in_distance_table(DistanceTable))
+main()
