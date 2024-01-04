@@ -1,5 +1,8 @@
 from levenshtein_distance import levenshtein_distance
 
+# sequences: ensemble de mots
+# mots ou sequence: ADN
+
 def find(table, value):
     for Row in table:
         for Column in Row:
@@ -52,6 +55,31 @@ def merge_classes(firstClassTable, secondClassTable):
         firstClassTable.append(sequence)
     return firstClassTable
 
+def create_new_table(sequences):
+    DistanceTable = []
+    FirstRow = []
+    FirstRow.append("")
+    for sequence in sequences:
+        FirstRow.append(sequence)
+    DistanceTable.append(FirstRow)
+    # add rows width distance in distance table
+    for sequence in sequences:
+        NewRow = []
+        NewRow.append(sequence)
+        for item in sequences:
+            distance = 0
+            if is_class(item) and is_class(sequence):
+                distance = distance_between_classes(item, sequence)
+            elif is_class(item):
+                distance = distance_between_class_and_sequence(item, sequence)
+            elif is_class(sequence):
+                distance = (distance_between_class_and_sequence(sequence, item))
+            else:
+                distance = levenshtein_distance(item, sequence)
+            NewRow.append(distance)
+        DistanceTable.append(NewRow)
+    return DistanceTable
+
 def main():
     NumberOfSequences = int(input("Enter the number of sequences: "))
     Sequences = []
@@ -89,8 +117,5 @@ def main():
 
 #main()
 tab = ["aa","bb", "cc"]
-checkTab = is_class(['a'])
-if checkTab:
-    print("it's an array")
-else:
-    print("it's not array")
+DistanceTable = create_new_table(tab)
+print(DistanceTable)
