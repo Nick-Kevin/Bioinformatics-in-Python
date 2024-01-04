@@ -150,12 +150,31 @@ def main():
         LastClass = Classes[len(Classes)-1]
         if is_finished(LastClass, Sequences):
             break
+    LeftSequence = Classes[0][0]
+    ClasseNiveau = []
+    Level = 0
     for classe in reversed(Classes):
-        print("classe niveau:", classe)
-    LastLevel = "classe niveau: "
-    for sequence in Sequences:
+        if classe[0] == LeftSequence:
+            ClasseNiveau.append(classe)
+            RevesedClasseNiveau = []
+            for item in reversed(ClasseNiveau):
+                RevesedClasseNiveau.append(item)
+            PrintClassNiveau = ""
+            for item in RevesedClasseNiveau:
+                if item != RevesedClasseNiveau[len(RevesedClasseNiveau)-1]:
+                    PrintClassNiveau += str(item) + " | "
+                else:
+                    PrintClassNiveau += str(item)
+            Level += 1
+            print("Classe niveau " + str(Level) + ":", PrintClassNiveau)
+            ClasseNiveau = []
+        else:
+            ClasseNiveau.append(classe)
+    Level += 1
+    LastLevel = "Classe niveau " + str(Level) + ": "
+    for sequence in Classes[len(Classes)-1]:
         a = [sequence]
-        LastLevel += str(a) + ", "
+        LastLevel += str(a) + "| "
     print(LastLevel)
 
 
