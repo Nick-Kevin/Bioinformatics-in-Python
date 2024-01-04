@@ -124,39 +124,13 @@ def main():
 
     Classes = []
     LastSequences = Sequences
-    """DistancesTable = create_new_table(LastSequences)
-    MinimumDistance = get_minimum_in_distance_table(DistancesTable)
-    SequecenesPositions = get_sequences_by_distance(DistancesTable, MinimumDistance)
-    print(DistancesTable)
-    print("distance minimum = ",MinimumDistance)
-    print("Position des sequences = ",SequecenesPositions)
-    FirstSequence = SequecenesPositions['first_sequence']
-    SecondSequence = SequecenesPositions['second_sequence']
-    NewClasses = []
-    if is_class(FirstSequence) and is_class(SecondSequence):
-        NewClasses = merge_classes(FirstSequence, SecondSequence)
-    elif is_class(FirstSequence):
-        NewClasses = FirstSequence.append(SecondSequence)
-    elif is_class(SecondSequence):
-        NewClasses = SecondSequence.append(FirstSequence)
-    else:
-        NewClasses = [FirstSequence, SecondSequence]
-    print("la nouvelle classe = ", NewClasses)
-    Classes.append(NewClasses)
-    print("last sequences:", LastSequences)
-    LastSequences = create_sequences(LastSequences, NewClasses)
-    print("new sequences:", LastSequences)"""
     while True:
         DistancesTable = create_new_table(LastSequences)
-        for item in DistancesTable:
-            print(item)
         MinimumDistance = get_minimum_in_distance_table(DistancesTable)
         SequecenesPositions = get_sequences_by_distance(DistancesTable, MinimumDistance)
         FirstSequence = SequecenesPositions['first_sequence']
         SecondSequence = SequecenesPositions['second_sequence']        
         # create new class
-        print("First sequence:", FirstSequence)
-        print("Second sequence:", SecondSequence)
         NewClasses = []
         if is_class(FirstSequence) and is_class(SecondSequence):
             NewClasses = merge_classes(FirstSequence, SecondSequence)
@@ -171,14 +145,9 @@ def main():
         else:
             NewClasses = [FirstSequence, SecondSequence]
         Classes.append(NewClasses)
-        print("new classe", NewClasses)
-        print("Last sequence", LastSequences)
+        print("new class", NewClasses)
         LastSequences = create_sequences(LastSequences, NewClasses)
-        LastClass = Classes[len(Classes)-1]        
-        print("Last class in classes", LastClass)
-        print("sequences = ", Sequences)
-        print("Tous les classes:", Classes)        
-        print("\n\nNew sequence = ", LastSequences)
+        LastClass = Classes[len(Classes)-1]
         if is_finished(LastClass, Sequences):
             break
     for classe in reversed(Classes):
