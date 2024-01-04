@@ -10,6 +10,13 @@ def find(table, value):
                 return { 'row': table.index(Row), 'col': Row.index(value)}
     return { 'row': -1, 'col': -1 }
 
+def minimum_in_a_row(RowOfATable):
+    minimum = RowOfATable[0]
+    for item in RowOfATable:
+        if item < minimum and item > 0:
+            minimum = item
+    return minimum
+
 def get_sequences_by_distance(table, distance_value):
     Position = find(table, distance_value)
     ColumnOfTheDistance = Position['col']
@@ -116,6 +123,6 @@ def main():
     print('Second sequence: ', SequencesOfTheValue['second_sequence'])
 
 #main()
-tab = ["aa","bb", "cc"]
+tab = ["aa","bb", ["a", "ba"]]
 DistanceTable = create_new_table(tab)
 print(DistanceTable)
