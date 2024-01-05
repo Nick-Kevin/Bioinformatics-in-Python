@@ -120,12 +120,26 @@ def get_the_longest_char_in_column(table, Column):
     return MaxChar
 
 def display_distances_table(distances_table):
+    Display = ""
     MaxCharForEachColumn = []
     ColumnNumber = len(distances_table[0])
     for number in range(ColumnNumber):
         MaxCharForTheColumn = get_the_longest_char_in_column(distances_table, number)
         MaxCharForEachColumn.append(MaxCharForTheColumn)
-    return MaxCharForEachColumn
+    for Row in distances_table:
+        space = " "
+        RowToDisplay = ""
+        for Column in Row:
+            LenghtOfTheColumn = len(str(Column))
+            NumberOfTheColumn = Row.index(Column)
+            DisplayColumn = ""
+            NumberOfSpaces = MaxCharForEachColumn[NumberOfTheColumn] - LenghtOfTheColumn
+            for _ in range(NumberOfSpaces):
+                DisplayColumn += space
+            DisplayColumn += str(Column) + "| "
+            RowToDisplay += DisplayColumn
+        Display += RowToDisplay + "\n"
+    return Display
 
 def main():
     NumberOfSequences = int(input("Enter the number of sequences: "))
@@ -193,6 +207,6 @@ def main():
 
 #main()
 
-tab = [["axdjk", 546], [67, "hjsd"]]
+tab = [["axdjkjsdfmljsdf", 546], [67, "hjsd"], [78, "hkjqsldhfjdhs"], ["sdf", 78]]
 
 print(display_distances_table(tab))
