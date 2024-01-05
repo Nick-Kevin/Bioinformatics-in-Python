@@ -112,6 +112,20 @@ def create_sequences(LastSequences, NewClass):
     NewSequences.append(NewClass)
     return NewSequences
 
+def get_the_longest_char_in_column(table, Column):
+    MaxChar = len(str(table[0][Column]))
+    for Row in table:
+        if len(str(Row[Column])) > MaxChar:
+            MaxChar = len(str(Row[Column]))
+    return MaxChar
+
+def display_distances_table(distances_table):
+    MaxCharForEachColumn = []
+    ColumnNumber = len(distances_table[0])
+    for number in range(ColumnNumber):
+        MaxCharForTheColumn = get_the_longest_char_in_column(distances_table, number)
+        MaxCharForEachColumn.append(MaxCharForTheColumn)
+    return MaxCharForEachColumn
 
 def main():
     NumberOfSequences = int(input("Enter the number of sequences: "))
@@ -177,6 +191,8 @@ def main():
         LastLevel += str(a) + "| "
     print(LastLevel)
 
+#main()
 
+tab = [["axdjk", 546], [67, "hjsd"]]
 
-main()
+print(display_distances_table(tab))
