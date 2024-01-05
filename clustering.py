@@ -163,9 +163,8 @@ def main():
         SequecenesPositions = get_sequences_by_distance(DistancesTable, MinimumDistance)
         FirstSequence = SequecenesPositions['first_sequence']
         SecondSequence = SequecenesPositions['second_sequence']
-        print("The minimum distance is: Dl("+ str(FirstSequence) + "," + str(SecondSequence) + ") =",
-            MinimumDistance
-        )
+        print("The minimum distance is: "+ color.BOLD +"Dl("+ str(FirstSequence) + ","
+            + str(SecondSequence) + ") =" + str(MinimumDistance) + color.END)
         # create new class
         NewClasses = []
         if is_class(FirstSequence) and is_class(SecondSequence):
@@ -181,7 +180,7 @@ def main():
         else:
             NewClasses = [SecondSequence, FirstSequence]
         Classes.append(NewClasses)
-        print("new class:", NewClasses)
+        print(color.BOLD + "new class:" + str(NewClasses) + color.END)
         print()
         LastSequences = create_sequences(LastSequences, NewClasses)
         LastClass = Classes[len(Classes)-1]
