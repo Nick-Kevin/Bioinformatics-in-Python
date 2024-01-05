@@ -1,4 +1,5 @@
 from levenshtein_distance import levenshtein_distance
+from color import color
 
 # sequences: ensemble de mots
 # mots ou sequence: ADN
@@ -156,7 +157,7 @@ def main():
     LastSequences = Sequences
     while True:
         DistancesTable = create_new_table(LastSequences)
-        print("Distances table:")
+        print(color.BOLD + color.UNDERLINE + "Distances table:" + color.END)
         print(display_distances_table(DistancesTable))
         MinimumDistance = get_minimum_in_distance_table(DistancesTable)        
         SequecenesPositions = get_sequences_by_distance(DistancesTable, MinimumDistance)
@@ -192,7 +193,7 @@ def main():
 
     print("Classes", Classes)
     # display final results
-    print("\n\nFINAL RESULTS")
+    print("\n\n" + color.BOLD + "FINAL RESULTS" + color.END)
     Position = len(Classes)-1
     SequenceOnLeft = Classes[Position][0]
     level = 0
