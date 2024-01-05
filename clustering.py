@@ -21,10 +21,10 @@ def get_minimum_in_distance_table(DistanceTable):
 
 def get_sequences_by_distance(table, distance_value):
     Position = find(table, distance_value)
-    ColumnOfTheDistance = Position['col']
-    FirstSequence = table[0][ColumnOfTheDistance]
     RowOfTheDistance = Position['row']
     SecondSequence = table[RowOfTheDistance][0]
+    ColumnOfTheDistance = Position['col']
+    FirstSequence = table[0][ColumnOfTheDistance]    
     return { 'first_sequence': FirstSequence, 'second_sequence': SecondSequence }
 
 def is_finished(table, sequences_table):
@@ -60,10 +60,10 @@ def distance_between_classes(firstClassTable, secondClassTable):
 
 def merge_classes(firstClassTable, secondClassTable):
     Merge = []
-    for sequence in firstClassTable:
-        Merge.append(sequence)
     for sequence in secondClassTable:
         Merge.append(sequence)
+    for sequence in firstClassTable:
+        Merge.append(sequence)    
     return Merge
 
 def create_new_table(sequences):
@@ -129,15 +129,16 @@ def display_distances_table(distances_table):
     for Row in distances_table:
         space = " "
         RowToDisplay = ""
+        NumberOfTheColumn = 0
         for Column in Row:
             LenghtOfTheColumn = len(str(Column))
-            NumberOfTheColumn = Row.index(Column)
             DisplayColumn = ""
             NumberOfSpaces = MaxCharForEachColumn[NumberOfTheColumn] - LenghtOfTheColumn
             for _ in range(NumberOfSpaces):
                 DisplayColumn += space
             DisplayColumn += str(Column) + "| "
             RowToDisplay += DisplayColumn
+            NumberOfTheColumn += 1
         Display += RowToDisplay + "\n"
     return Display
 
@@ -154,10 +155,15 @@ def main():
     LastSequences = Sequences
     while True:
         DistancesTable = create_new_table(LastSequences)
+        print()
+        print(display_distances_table(DistancesTable))
         MinimumDistance = get_minimum_in_distance_table(DistancesTable)
+        print("The minimum distance is", MinimumDistance)
         SequecenesPositions = get_sequences_by_distance(DistancesTable, MinimumDistance)
         FirstSequence = SequecenesPositions['first_sequence']
-        SecondSequence = SequecenesPositions['second_sequence']        
+        SecondSequence = SequecenesPositions['second_sequence'] 
+        print("The first sequence is", FirstSequence)
+        print("The second sequence is", SecondSequence)       
         # create new class
         NewClasses = []
         if is_class(FirstSequence) and is_class(SecondSequence):
@@ -171,42 +177,41 @@ def main():
                 NewClasses.append(sequence)
             NewClasses.append(SecondSequence)
         else:
-            NewClasses = [FirstSequence, SecondSequence]
+            NewClasses = [SecondSequence, FirstSequence]
         Classes.append(NewClasses)
         print("new class", NewClasses)
+        print()
         LastSequences = create_sequences(LastSequences, NewClasses)
         LastClass = Classes[len(Classes)-1]
         if is_finished(LastClass, Sequences):
             break
-    LeftSequence = Classes[0][0]
+    LeftSequence = Classes[len(Classes)-1][0]
     ClasseNiveau = []
     Level = 0
+
+    print("Classes", Classes)
+    # display final results
+    print("\n\nFINAL RESULTS")
+    Position = len(Classes)-1
+    SequenceOnLeft = Classes[Position][0]
+    level = 0
+    ClasseLevel = []
     for classe in reversed(Classes):
-        if classe[0] == LeftSequence:
-            ClasseNiveau.append(classe)
-            RevesedClasseNiveau = []
-            for item in reversed(ClasseNiveau):
-                RevesedClasseNiveau.append(item)
+        if classe[0] == SequenceOnLeft:
+            ClasseLevel.append(classe)
             PrintClassNiveau = ""
-            for item in RevesedClasseNiveau:
-                if item != RevesedClasseNiveau[len(RevesedClasseNiveau)-1]:
-                    PrintClassNiveau += str(item) + " | "
-                else:
-                    PrintClassNiveau += str(item)
-            Level += 1
-            print("Classe niveau " + str(Level) + ":", PrintClassNiveau)
-            ClasseNiveau = []
+            for item in reversed(ClasseLevel):
+                PrintClassNiveau += str(item) + "   |   "
+            level += 1
+            print("Classe niveau" + str(level) + ": " + PrintClassNiveau)
+            ClasseLevel = []
         else:
-            ClasseNiveau.append(classe)
-    Level += 1
-    LastLevel = "Classe niveau " + str(Level) + ": "
+            ClasseLevel.append(classe)
+    level += 1
+    LastLevel = "Classe niveau " + str(level) + ": "
     for sequence in Classes[len(Classes)-1]:
         a = [sequence]
-        LastLevel += str(a) + "| "
+        LastLevel += str(a) + " | "
     print(LastLevel)
 
-#main()
-
-tab = [["axdjkjsdfmljsdf", 546], [67, "hjsd"], [78, "hkjqsldhfjdhs"], ["sdf", 78]]
-
-print(display_distances_table(tab))
+main()
