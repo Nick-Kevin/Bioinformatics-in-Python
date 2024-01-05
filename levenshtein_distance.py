@@ -1,40 +1,31 @@
-def minimum(arg1, arg2, arg3):
-    if arg1 < arg2:
-        if arg1 < arg3:
-            return arg1
-        else: return arg3
-    elif arg2 < arg3:
-        return arg2
-    else: return arg3
-
-def levenshtein_distance(firstSequence, secondSequence):
-    RowNumberToStop = len(secondSequence) + 1
-    ColumnNumberToStop = len(firstSequence)+1
-    Distance = [[] for _ in range(RowNumberToStop)]    
-    Distance[0].append(0)
-    for RowIndex in range(1, RowNumberToStop):
-        Distance[RowIndex].append(Distance[RowIndex-1][0] + 1)
-    for ColumnIndex in range(1, ColumnNumberToStop):
-        Distance[0].append(Distance[0][ColumnIndex-1]+1)
-    for RowIndex in range(1, len(Distance)):
-        for ColumnIndex in range(1, ColumnNumberToStop):
-            if firstSequence[ColumnIndex-1] != secondSequence[RowIndex-1]:
-                dist1 = Distance[RowIndex-1][ColumnIndex-1] + 1
+def levenshtein_distance(PremiereSequence, DeuxiemeSequence):
+    ApresDerniereLigne = len(DeuxiemeSequence) + 1
+    ApresDerniereColonne = len(PremiereSequence)+1
+    Distances = [[] for _ in range(ApresDerniereLigne)]    
+    Distances[0].append(0)
+    for Ligne in range(1, ApresDerniereLigne):
+        Distances[Ligne].append(Distances[Ligne-1][0] + 1)
+    for Colonne in range(1, ApresDerniereColonne):
+        Distances[0].append(Distances[0][Colonne-1]+1)
+    for Ligne in range(1, len(Distances)):
+        for Colonne in range(1, ApresDerniereColonne):
+            if PremiereSequence[Colonne-1] != DeuxiemeSequence[Ligne-1]:
+                distance1 = Distances[Ligne-1][Colonne-1] + 1
             else:
-                dist1 = Distance[RowIndex-1][ColumnIndex-1]
-            dist2 = Distance[RowIndex-1][ColumnIndex] + 1
-            dist3 = Distance[RowIndex][ColumnIndex-1] + 1
-            Distance[RowIndex].append(minimum(dist1, dist2, dist3))
-    LevenshteinDistanceBetweenTheTwoSequences = Distance[len(secondSequence)][len(firstSequence)]
-    """print("The levenshtein distance between '"
-        +firstSequence
-        +"' and '"
-        + secondSequence
-        +"' is: Dl("
-        +firstSequence
+                distance1 = Distances[Ligne-1][Colonne-1]
+            distance2 = Distances[Ligne-1][Colonne] + 1
+            distance3 = Distances[Ligne][Colonne-1] + 1
+            Distances[Ligne].append(min(distance1, distance2, distance3))
+    DistanceDeLevenshtein = Distances[len(DeuxiemeSequence)][len(PremiereSequence)]
+    print("La distance de Levenshtein entre '"
+        +PremiereSequence
+        +"' et '"
+        + DeuxiemeSequence
+        +"' est: Dl("
+        +PremiereSequence
         +","
-        +secondSequence
+        +DeuxiemeSequence
         +") =",
-        LevenshteinDistanceBetweenTheTwoSequences
-    )"""
-    return LevenshteinDistanceBetweenTheTwoSequences
+        DistanceDeLevenshtein
+    )
+    return DistanceDeLevenshtein
