@@ -4,215 +4,213 @@ from color import color
 # sequences: ensemble de mots
 # mots ou sequence: ADN
 
-def find(table, value):
-    for Row in table:
-        for Column in Row:
-            if value == Column:
-                return { 'row': table.index(Row), 'col': Row.index(value)}
-    return { 'row': -1, 'col': -1 }
+def cherher(tableau, valeur):
+    for Ligne in tableau:
+        for Sequence in Ligne:
+            if valeur == Sequence:
+                return { 'ligne': tableau.index(Ligne), 'colonne': Ligne.index(valeur)}
+    return { 'ligne': -1, 'colonne': -1 }
 
-def get_minimum_in_distance_table(DistanceTable):
-    DistancesWithoutZero = []
-    for Row in DistanceTable:
-        for item in Row:
-            if isinstance(item, int) and item > 0:
-                DistancesWithoutZero.append(item)
-    minimum = min(DistancesWithoutZero)
+def prendre_le_minimum_dans_le_tableau(TableauDeDistances):
+    DistancesSansZero = []
+    for Ligne in TableauDeDistances:
+        for Sequence in Ligne:
+            if isinstance(Sequence, int) and Sequence > 0:
+                DistancesSansZero.append(Sequence)
+    minimum = min(DistancesSansZero)
     return minimum
 
-def get_sequences_by_distance(table, distance_value):
-    Position = find(table, distance_value)
-    RowOfTheDistance = Position['row']
-    SecondSequence = table[RowOfTheDistance][0]
-    ColumnOfTheDistance = Position['col']
-    FirstSequence = table[0][ColumnOfTheDistance]    
-    return { 'first_sequence': FirstSequence, 'second_sequence': SecondSequence }
+def prendre_les_sequences(tableau, distance):
+    Position = cherher(tableau, distance)    
+    ColonneDeLaSequence = Position['colonne']
+    PremiereSequence = tableau[0][ColonneDeLaSequence]
+    LigneDeLaDistance = Position['ligne']
+    DeuxiemeSequence = tableau[LigneDeLaDistance][0] 
+    return { 'first_sequence': PremiereSequence, 'second_sequence': DeuxiemeSequence }
 
-def is_finished(table, sequences_table):
-    InSequencesTable = 0
-    for item in table:
-        for sequence in sequences_table:
-            if item == sequence:
-                InSequencesTable += 1
-    if InSequencesTable != len(sequences_table):
+def une_seule_classe_pour_tous_objects(tableau, tableau_de_sequence):
+    NombreDeSequences = 0
+    for Ligne in tableau:
+        for sequence in tableau_de_sequence:
+            if Ligne == sequence:
+                NombreDeSequences += 1
+    if NombreDeSequences != len(tableau_de_sequence):
         return False
     return True
 
-def is_class(value):
-    if isinstance(value, list) == False:
+def est_une_classe(valeur):
+    if isinstance(valeur, list) == False:
         return False
     return True
 
-def distance_between_class_and_sequence(classTable, sequence):
-    Distance = []
-    for item in classTable:
-        dist = levenshtein_distance(item, sequence)
-        Distance.append(dist)
-    minimum = min(Distance)
+def distance_entre_classe_et_sequence(classe, sequence):
+    Distances = []
+    for item in classe:
+        distance = levenshtein_distance(item, sequence)
+        Distances.append(distance)
+    minimum = min(Distances)
     return minimum
 
-def distance_between_classes(firstClassTable, secondClassTable):
-    Distance = []
-    for sequence in secondClassTable:
-        dist = distance_between_class_and_sequence(firstClassTable, sequence)
-        Distance.append(dist)
-    minimum = min(Distance)
+def distance_entre_classes(premiere_classe, deuxieme_classe):
+    Distances = []
+    for sequence in deuxieme_classe:
+        distance = distance_entre_classe_et_sequence(premiere_classe, sequence)
+        Distances.append(distance)
+    print("Distances = ", Distances )
+    minimum = min(Distances)
     return minimum
 
-def merge_classes(firstClassTable, secondClassTable):
-    Merge = []
-    for sequence in secondClassTable:
-        Merge.append(sequence)
-    for sequence in firstClassTable:
-        Merge.append(sequence)    
-    return Merge
+def fusionner_classes(premiere_classe, deuxieme_classe):
+    Fusion = []
+    for sequence in deuxieme_classe:
+        Fusion.append(sequence)
+    for sequence in premiere_classe:
+        Fusion.append(sequence)    
+    return Fusion
 
-def create_new_table(sequences):
-    DistanceTable = []
-    FirstRow = []
-    FirstRow.append("")
+def creer_tableau(sequences):
+    Tableau = []
+    PremiereLigne = []
+    PremiereLigne.append("")
     for sequence in sequences:
-        FirstRow.append(sequence)
-    DistanceTable.append(FirstRow)
-    # add rows width distance in distance table
+        PremiereLigne.append(sequence)
+    Tableau.append(PremiereLigne)
+    # ajout de nouvelles lignes dans le tableau
     for sequence in sequences:
-        NewRow = []
-        NewRow.append(sequence)
+        NouvelleLigne = []
+        NouvelleLigne.append(sequence)
         for item in sequences:
             distance = 0
-            if is_class(item) and is_class(sequence):
-                distance = distance_between_classes(item, sequence)
-            elif is_class(item):
-                distance = distance_between_class_and_sequence(item, sequence)
-            elif is_class(sequence):
-                distance = (distance_between_class_and_sequence(sequence, item))
+            if est_une_classe(item) and est_une_classe(sequence):
+                distance = distance_entre_classes(item, sequence)
+            elif est_une_classe(item):
+                distance = distance_entre_classe_et_sequence(item, sequence)
+            elif est_une_classe(sequence):
+                distance = (distance_entre_classe_et_sequence(sequence, item))
             else:
                 distance = levenshtein_distance(item, sequence)
-            NewRow.append(distance)
-        DistanceTable.append(NewRow)
-    return DistanceTable
+            NouvelleLigne.append(distance)
+        Tableau.append(NouvelleLigne)
+    return Tableau
 
-def create_sequences(LastSequences, NewClass):
+def creer_sequences_pour_un_tableau(DernieresSequences, NouvelleClasse):
     NewSequences = []
-    for item in LastSequences:
-        if is_class(item):
-            count = 0
-            for sequence in NewClass:
+    for item in DernieresSequences:
+        if est_une_classe(item):
+            compteur = 0
+            for sequence in NouvelleClasse:
                 for i in item:
                     if i == sequence:
-                        count += 1
-            if(count == 0):
+                        compteur += 1
+            if(compteur == 0):
                 NewSequences.append(item)    
         else:
-            InNewClass = False
-            for sequence in NewClass:
+            DansLaNouvelleClasse = False
+            for sequence in NouvelleClasse:
                 if sequence == item:
-                    InNewClass = True
-            if InNewClass == False:
+                    DansLaNouvelleClasse = True
+            if DansLaNouvelleClasse == False:
                 NewSequences.append(item)
-    NewSequences.append(NewClass)
+    NewSequences.append(NouvelleClasse)
     return NewSequences
 
-def get_the_longest_char_in_column(table, Column):
-    MaxChar = len(str(table[0][Column]))
-    for Row in table:
-        if len(str(Row[Column])) > MaxChar:
-            MaxChar = len(str(Row[Column]))
-    return MaxChar
+def prendre_la_plus_longue_sequence_d_une_colonne(tableau, Colonne):
+    NombreDeCaractereMaximum = len(str(tableau[0][Colonne]))
+    for Ligne in tableau:
+        if len(str(Ligne[Colonne])) > NombreDeCaractereMaximum:
+            NombreDeCaractereMaximum = len(str(Ligne[Colonne]))
+    return NombreDeCaractereMaximum
 
-def display_distances_table(distances_table):
-    Display = ""
-    MaxCharForEachColumn = []
-    ColumnNumber = len(distances_table[0])
-    for number in range(ColumnNumber):
-        MaxCharForTheColumn = get_the_longest_char_in_column(distances_table, number)
-        MaxCharForEachColumn.append(MaxCharForTheColumn)
-    for Row in distances_table:
-        space = " "
-        RowToDisplay = ""
-        NumberOfTheColumn = 0
-        for Column in Row:
-            LenghtOfTheColumn = len(str(Column))
-            DisplayColumn = ""
-            NumberOfSpaces = MaxCharForEachColumn[NumberOfTheColumn] - LenghtOfTheColumn
-            for _ in range(NumberOfSpaces):
-                DisplayColumn += space
-            DisplayColumn += str(Column) + "| "
-            RowToDisplay += DisplayColumn
-            NumberOfTheColumn += 1
-        Display += RowToDisplay + "\n"
-    return Display
+def afficher_tableau(tableau):
+    Afficher = ""
+    MaximumDeCharacteresPourLesColonnes = []
+    NombreDeColonneDuTableau = len(tableau[0])
+    for numero_colonne in range(NombreDeColonneDuTableau):
+        MaxCharacteres = prendre_la_plus_longue_sequence_d_une_colonne(tableau, numero_colonne)
+        MaximumDeCharacteresPourLesColonnes.append(MaxCharacteres)
+    for Ligne in tableau:
+        espace = " "
+        AfficherLigne = ""
+        NumColonne = 0
+        for Column in Ligne:
+            NombreCharacteres = len(str(Column))
+            AfficherColonne = ""
+            NombreDesEspaces = MaximumDeCharacteresPourLesColonnes[NumColonne] - NombreCharacteres
+            for _ in range(NombreDesEspaces):
+                AfficherColonne += espace
+            AfficherColonne += str(Column) + "| "
+            AfficherLigne += AfficherColonne
+            NumColonne += 1
+        Afficher += AfficherLigne + "\n"
+    return Afficher
 
-def main():
-    NumberOfSequences = int(input("Enter the number of sequences: "))
+def principale():
+    NombreDeSequencesADN = int(input("Entrer le nombres de séquences d'ADN: "))
     Sequences = []
-    for i in range(NumberOfSequences):
-        sequence = input("Entrer the ADN sequence " + str(i+1) + ": ")
+    for compteur in range(NombreDeSequencesADN):
+        sequence = input("Entre la séquence num " + str(compteur+1) + ": ")
         Sequences.append(sequence)
 
-    print("All sequences you entered: ", Sequences)
+    print("Les séquences que vous avez entré: ", Sequences)
     print()
 
     Classes = []
-    LastSequences = Sequences
+    DernieresSequences = Sequences
+    # implémentation de l'algorithme
     while True:
-        DistancesTable = create_new_table(LastSequences)
-        print(color.BOLD + color.UNDERLINE + "Distances table:" + color.END)
-        print(display_distances_table(DistancesTable))
-        MinimumDistance = get_minimum_in_distance_table(DistancesTable)        
-        SequecenesPositions = get_sequences_by_distance(DistancesTable, MinimumDistance)
-        FirstSequence = SequecenesPositions['first_sequence']
-        SecondSequence = SequecenesPositions['second_sequence']
-        print("The minimum distance is: "+ color.BOLD +"Dl("+ str(FirstSequence) + ","
-            + str(SecondSequence) + ") =" + str(MinimumDistance) + color.END)
-        # create new class
-        NewClasses = []
-        if is_class(FirstSequence) and is_class(SecondSequence):
-            NewClasses = merge_classes(FirstSequence, SecondSequence)
-        elif is_class(FirstSequence):
-            for sequence in FirstSequence:
-                NewClasses.append(sequence)
-            NewClasses.append(SecondSequence)
-        elif is_class(SecondSequence):
-            for sequence in SecondSequence:
-                NewClasses.append(sequence)
-            NewClasses.append(SecondSequence)
+        Tableau = creer_tableau(DernieresSequences)
+        print(color.BOLD + color.UNDERLINE + "Tableau de distances:" + color.END)
+        print(afficher_tableau(Tableau))
+        DistanceMinimale = prendre_le_minimum_dans_le_tableau(Tableau)        
+        PositionDesSequences = prendre_les_sequences(Tableau, DistanceMinimale)
+        PremiereSequence = PositionDesSequences['first_sequence']
+        DeuxiemeSequence = PositionDesSequences['second_sequence']
+        print("La distance minimale est: "+ color.BOLD +"Dl("+ str(PremiereSequence) + ","
+            + str(DeuxiemeSequence) + ") =" + str(DistanceMinimale) + color.END)
+        # creer une nouvelle classe
+        NouvelleClasse = []
+        if est_une_classe(PremiereSequence) and est_une_classe(DeuxiemeSequence):
+            NouvelleClasse = fusionner_classes(PremiereSequence, DeuxiemeSequence)
+        elif est_une_classe(PremiereSequence):
+            for sequence in PremiereSequence:
+                NouvelleClasse.append(sequence)
+            NouvelleClasse.append(DeuxiemeSequence)
+        elif est_une_classe(DeuxiemeSequence):
+            for sequence in DeuxiemeSequence:
+                NouvelleClasse.append(sequence)
+            NouvelleClasse.append(DeuxiemeSequence)
         else:
-            NewClasses = [SecondSequence, FirstSequence]
-        Classes.append(NewClasses)
-        print(color.BOLD + "new class:" + str(NewClasses) + color.END)
+            NouvelleClasse = [DeuxiemeSequence, PremiereSequence]
+        Classes.append(NouvelleClasse)
+        print(color.BOLD + "La nouvelle classe:" + str(NouvelleClasse) + color.END)
         print()
-        LastSequences = create_sequences(LastSequences, NewClasses)
-        LastClass = Classes[len(Classes)-1]
-        if is_finished(LastClass, Sequences):
+        DernieresSequences = creer_sequences_pour_un_tableau(DernieresSequences, NouvelleClasse)
+        DerniereClasseTrouvee = Classes[len(Classes)-1]
+        if une_seule_classe_pour_tous_objects(DerniereClasseTrouvee, Sequences):
             break
-    LeftSequence = Classes[len(Classes)-1][0]
+    
+    # affichage du diagramme des classes
+    print("\n\n" + color.BOLD + "RESULTATS FINALS" + color.END)
+    PositionDeLaDerniereClasse = len(Classes)-1
+    SequenceLaPlusAGauche = Classes[PositionDeLaDerniereClasse][0]
+    niveau = 0
     ClasseNiveau = []
-    Level = 0
-
-    print("Classes", Classes)
-    # display final results
-    print("\n\n" + color.BOLD + "FINAL RESULTS" + color.END)
-    Position = len(Classes)-1
-    SequenceOnLeft = Classes[Position][0]
-    level = 0
-    ClasseLevel = []
     for classe in reversed(Classes):
-        if classe[0] == SequenceOnLeft:
-            ClasseLevel.append(classe)
-            PrintClassNiveau = ""
-            for item in reversed(ClasseLevel):
-                PrintClassNiveau += str(item) + "   |   "
-            level += 1
-            print("Classe niveau " + str(level) + ": |   " + PrintClassNiveau)
-            ClasseLevel = []
+        if classe[0] == SequenceLaPlusAGauche:
+            ClasseNiveau.append(classe)
+            AffichageDeClasseNiveau = ""
+            for item in reversed(ClasseNiveau):
+                AffichageDeClasseNiveau += str(item) + "   |   "
+            niveau += 1
+            print("Classe niveau " + str(niveau) + ": |   " + AffichageDeClasseNiveau)
+            ClasseNiveau = []
         else:
-            ClasseLevel.append(classe)
-    level += 1
-    LastLevel = "Classe niveau " + str(level) + ": |   "
+            ClasseNiveau.append(classe)
+    niveau += 1
+    DerinierNiveau = "Classe niveau " + str(niveau) + ": |   "
     for sequence in Classes[len(Classes)-1]:
-        a = [sequence]
-        LastLevel += str(a) + "   |   "
-    print(LastLevel)
+        SequenceEnClasse = [sequence]
+        DerinierNiveau += str(SequenceEnClasse) + "   |   "
+    print(DerinierNiveau)
 
-main()
+principale()
