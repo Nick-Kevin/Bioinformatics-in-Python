@@ -12,7 +12,7 @@ for nucleotide in range(len(PremiereSequence)):
     if PremiereSequence[nucleotide] != DeuxièmeSequence[nucleotide]:
         Distance += 1
 
-print("\nThe hamming distance between '" + PremiereSequence +"' and '" + DeuxièmeSequence + "' is:")
+print("\nLa distance de Hamming entre '" + PremiereSequence +"' et '" + DeuxièmeSequence + "' est:")
 print("Dh(" + PremiereSequence + "," + DeuxièmeSequence + ") =", Distance)
 print("")
 
