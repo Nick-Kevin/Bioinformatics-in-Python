@@ -56,7 +56,6 @@ def distance_entre_classes(premiere_classe, deuxieme_classe):
     for sequence in deuxieme_classe:
         distance = distance_entre_classe_et_sequence(premiere_classe, sequence)
         Distances.append(distance)
-    print("Distances = ", Distances )
     minimum = min(Distances)
     return minimum
 
@@ -145,10 +144,10 @@ def afficher_tableau(tableau):
     return Afficher
 
 def principale():
-    NombreDeSequencesADN = int(input("Entrer le nombres de séquences d'ADN: "))
+    NombreDeSequencesADN = int(input("Entrez le nombres de séquences d'ADN: "))
     Sequences = []
     for compteur in range(NombreDeSequencesADN):
-        sequence = input("Entre la séquence num " + str(compteur+1) + ": ")
+        sequence = input("Entrez la séquence num " + str(compteur+1) + ": ")
         Sequences.append(sequence)
 
     print("Les séquences que vous avez entré: ", Sequences)
