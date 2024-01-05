@@ -203,15 +203,15 @@ def main():
             for item in reversed(ClasseLevel):
                 PrintClassNiveau += str(item) + "   |   "
             level += 1
-            print("Classe niveau" + str(level) + ": " + PrintClassNiveau)
+            print("Classe niveau " + str(level) + ": |   " + PrintClassNiveau)
             ClasseLevel = []
         else:
             ClasseLevel.append(classe)
     level += 1
-    LastLevel = "Classe niveau " + str(level) + ": "
+    LastLevel = "Classe niveau " + str(level) + ": |   "
     for sequence in Classes[len(Classes)-1]:
         a = [sequence]
-        LastLevel += str(a) + " | "
+        LastLevel += str(a) + "   |   "
     print(LastLevel)
 
 main()
