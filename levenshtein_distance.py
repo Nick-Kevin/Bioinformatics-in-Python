@@ -29,3 +29,8 @@ def levenshtein_distance(PremiereSequence, DeuxiemeSequence):
         DistanceDeLevenshtein
     )
     return DistanceDeLevenshtein
+
+PremiereSequence = input("Entrez la premiere séquence d'ADN: ")
+DeuxiemeSequence = input("Entrez la deuxième séquence d'ADN: ")
+
+levenshtein_distance(PremiereSequence, DeuxiemeSequence)
