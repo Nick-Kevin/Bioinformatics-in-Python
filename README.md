@@ -31,6 +31,9 @@ Hamming distance is a metric for comparing two binary data strings or strings da
 But here, the bit is replaced by character because of comparing two ADN. 
 
 The Hamming distance between two strings, a and b is denoted as d(a,b).
+#### overview
+<img src="overviews/hamming-distance.gif" alt="overview">
+
 ### Levenshtein distance
 Levenshtein distance is a well-established mathematical algorithm for measuring the edit distance between words and can specifically weight insertions, deletions and substitutions. However, there are drawbacks to using Levenshtein distance in a biological context and hence has rarely been used for this purpose.  
 The Levenshtein distance allows deletion, insertion and substitution. The Hamming distance allows only substitution, hence, it only applies to strings of the same length.
