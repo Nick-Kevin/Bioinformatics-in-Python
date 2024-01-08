@@ -1,6 +1,6 @@
 from levenshtein_distance import levenshtein_distance
 
-NumberOfSequences = int(input("Enter the number of ADN sequences: "))
+NumberOfSequences = int(input("Enter the number of ADN sequences or genes: "))
 
 Sequences = []
 for _ in range(NumberOfSequences):
@@ -17,27 +17,30 @@ Classes.append(Classe1)
 j = 1
 m = 1
 while j < len(Sequences):
-    DansUneClasse = False   
+    Distances = []   
     for classe in Classes:
-        Distancese = []
+        DistanceBetweenSequences = []
         for sequence in classe:
             distance = levenshtein_distance(sequence, Sequences[j])
-            Distancese.append(distance)
-        minD = Distancese[0]
-        for dist in Distancese:
-            if dist < minD:
-                minD = dist
-        if minD <= DoorStep:
-            classe.append(Sequences[j])
-            DansUneClasse = True
-            break
-    if DansUneClasse == False:
-        Classes.append([]) # new class for Sequences[j]
-        Classes[m].append(Sequences[j]) # insert the sequence in the new class
+            DistanceBetweenSequences.append(distance)
+        DistanceBetweenClassAndGene = min(DistanceBetweenSequences)
+        Distances.append(DistanceBetweenClassAndGene)
+    MinimumDistance = min(Distances)
+    PositionOfTheMinimumDistance = Distances.index(MinimumDistance)
+    if MinimumDistance <= DoorStep:
+        ClassOfTheGene = Classes[PositionOfTheMinimumDistance]
+        ClassOfTheGene.append(Sequences[j])
+    else:
+        Classes.append([]) # nouvelle classe pour Sequences[j]
+        Classes[m].append(Sequences[j]) # insertion de la sequence dans la nouvelle classe
+        m += 1
     j += 1
 
+# display
+print()
 for classe in Classes:
     GroupeClass = "Classe " + str(Classes.index(classe)+1) + ":"
     for sequence in classe:
         GroupeClass += " " + sequence + ", "
     print(GroupeClass)
+print()
