@@ -26,22 +26,45 @@ Open a terminal or command prompt and navigate to the directory that you want to
 - [Hammming distance](#hamming-distance)
 - [Levenshtein distance](#levenshtein-distance)
 - [Nearest Neighbor Networks (NNN)](#nearest-neighbor-networks-nnn)
+- [Hierarchical clustering](#hierarchical-clustering)
+<br>
+<br>
+<br>
 
-### _Hamming distance_
+# _Hamming distance_
 Hamming distance is a metric for comparing two binary data strings or strings data. While comparing two binary strings of equal length, Hamming distance is the number of bit positions in which the two bits are different.
 But here, the bit is replaced by character because of comparing two ADN. 
 
 The Hamming distance between two strings, a and b is denoted as d(a,b).
-#### overview
+### overview
 <img src="overviews/hamming-distance.gif" alt="overview">
+<br>
+<br>
+<br>
 
-### Levenshtein distance
+# Levenshtein distance
 Levenshtein distance is a well-established mathematical algorithm for measuring the edit distance between words and can specifically weight insertions, deletions and substitutions. However, there are drawbacks to using Levenshtein distance in a biological context and hence has rarely been used for this purpose.  
 The Levenshtein distance allows deletion, insertion and substitution. The Hamming distance allows only substitution, hence, it only applies to strings of the same length.
-#### overview
+### overview
 <img src="overviews/levenshtein-distance.gif" alt="overview">
+<br>
+<br>
+<br>
 
-### _Nearest Neighbor Networks (NNN)_
+# _Nearest Neighbor Networks (NNN)_
 Nearest Neighbor Networks (NNN), a graph-based algorithm to generate clusters of genes with similar expression profiles. This method produces clusters based on overlapping cliques within an interaction network generated from mutual nearest neighborhoods. This focus on nearest neighbors rather than on absolute distance measures allows us to capture clusters with high connectivity even when they are spatially separated, and requiring mutual nearest neighbors allows genes with no sufficiently similar partners to remain unclustered.
 It uses the levenshtein distance to calculate distances between each ADN sequence and classe and classify each ADN sequence.
-#### overview
+### overview
+<img src="overviews/Nearly-Neighbour-Networks.png" alt="overview">
+<br>
+<br>
+<br>
+
+# _Hierarchical clustering_
+Hierarchical clustering characterizes how similar (or dissimilar) the samples are based on overall patterns of measurements.
+### overview
+<img src="overviews/clustering.png" alt="overview">
+<img src="overviews/clustering-2.png" alt="overview">
+<br>
+<br>
+<br>

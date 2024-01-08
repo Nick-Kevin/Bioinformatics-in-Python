@@ -144,10 +144,10 @@ def display_distances_table(distances_table):
     return Display
 
 def main():
-    NumberOfSequences = int(input("Enter the number of sequences: "))
+    NumberOfSequences = int(input("Enter the number of ADN sequences or genes: "))
     Sequences = []
     for i in range(NumberOfSequences):
-        sequence = input("Entrer the ADN sequence " + str(i+1) + ": ")
+        sequence = input("Entrer the ADN sequence or gene" + str(i+1) + ": ")
         Sequences.append(sequence)
 
     print("All sequences you entered: ", Sequences)
