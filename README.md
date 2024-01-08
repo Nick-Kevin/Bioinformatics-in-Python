@@ -25,6 +25,7 @@ Open a terminal or command prompt and navigate to the directory that you want to
 ### List of modules
 - [Hammming distance](#hamming-distance)
 - [Levenshtein distance](#levenshtein-distance)
+- [Nearest Neighbor Networks (NNN)](#nearest-neighbor-networks-nnn)
 
 ### _Hamming distance_
 Hamming distance is a metric for comparing two binary data strings or strings data. While comparing two binary strings of equal length, Hamming distance is the number of bit positions in which the two bits are different.
@@ -39,3 +40,8 @@ Levenshtein distance is a well-established mathematical algorithm for measuring 
 The Levenshtein distance allows deletion, insertion and substitution. The Hamming distance allows only substitution, hence, it only applies to strings of the same length.
 #### overview
 <img src="overviews/levenshtein-distance.gif" alt="overview">
+
+### _Nearest Neighbor Networks (NNN)_
+Nearest Neighbor Networks (NNN), a graph-based algorithm to generate clusters of genes with similar expression profiles. This method produces clusters based on overlapping cliques within an interaction network generated from mutual nearest neighborhoods. This focus on nearest neighbors rather than on absolute distance measures allows us to capture clusters with high connectivity even when they are spatially separated, and requiring mutual nearest neighbors allows genes with no sufficiently similar partners to remain unclustered.
+It uses the levenshtein distance to calculate distances between each ADN sequence and classe and classify each ADN sequence.
+#### overview
