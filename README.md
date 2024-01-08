@@ -23,10 +23,10 @@ Open a terminal or command prompt and navigate to the directory that you want to
 ```
 
 ### List of modules
-- [Hammming distance](/README#hamming-distance)
-- [Levenshtein distance](/README#levenshtein-distance)
+- [Hammming distance](#hamming-distance)
+- [Levenshtein distance](#levenshtein-distance)
 
-### Hamming distance
+### _Hamming distance_
 Hamming distance is a metric for comparing two binary data strings or strings data. While comparing two binary strings of equal length, Hamming distance is the number of bit positions in which the two bits are different.
 But here, the bit is replaced by character because of comparing two ADN. 
 
